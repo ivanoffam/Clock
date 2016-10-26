@@ -1,0 +1,70 @@
+<html> 
+	<head>
+	</head> 
+	
+	<body onload="startTime()">
+		<p id = "timeLine" onclick = "timeChange();" oncontextmenu = "return timeChange();"> </p>
+		
+		<script type = "text/javascript">
+			var condition = "hhmmss";
+
+			function startTime() {
+				var today = new Date();
+				
+				var hh 		= today.getHours();
+				var mm 		= today.getMinutes();
+				var ss 		= today.getSeconds();
+				
+				var dd 		= today.getDate();
+				var mm 		= today.getMonth() +1;
+				var yyyy 	= today.getFullYear();
+
+				if (condition == "hhmmss") {
+					mm = checkTime(mm);
+					ss = checkTime(ss);
+					document.getElementById('timeLine').innerHTML = hh + ":" + mm + ":" + ss;
+				}
+				else if (condition == "hhmm") {
+					mm = checkTime(mm);
+					document.getElementById('timeLine').innerHTML = hh + ":" + mm;
+				}
+				else if (condition == "ddmmyyyy") {
+					document.getElementById('timeLine').innerHTML = dd + "." + mm + "." + yyyy;
+				}
+				setTimeout('startTime()', 200);
+			}
+			
+			function checkTime(t) {
+				if (t < 10)	{
+					t = "0" + t;
+				}
+				
+				return t;
+			}
+
+			function timeChange(event) {
+				event = event || window.event;
+				
+				if(event.type == "click") {
+					if (condition == "hhmmss") {
+						condition = "hhmm";
+					}
+					else {
+						condition = "hhmmss";
+					}
+				}
+				else if(event.type == "contextmenu") {
+					if(condition == "ddmmyyyy")	{
+						condition = "hhmmss";
+					}
+					else {
+						condition = "ddmmyyyy";
+					}
+				}
+				
+				return false;
+			}
+		</script>
+	</body>
+</html>
+		
